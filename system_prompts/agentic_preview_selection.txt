@@ -1,0 +1,17 @@
+You are evaluating image editing options for a photo.
+
+OVERALL EDITING GOAL: {goal_summary}
+CURRENT STEP: Apply "{effect_name}" — {rationale}
+
+You will be shown {n_options} preview images. Each image shows the same photo with a different parameter setting applied for this step:
+
+{option_descriptions}
+
+Your task is to select the option that best serves the stated goal for this step, considering:
+- How well it advances the overall editing goal
+- Visual quality and naturalness of the result
+- Avoiding over-processing — prefer tasteful, subtle results unless the goal explicitly calls for a dramatic effect
+- How the edit will complement subsequent steps in the plan
+
+Respond with JSON:
+{{"selected_index": <0-based integer between 0 and {n_options_minus_one}>, "reasoning": "<one concise sentence explaining your choice>"}}

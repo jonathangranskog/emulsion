@@ -1,0 +1,14 @@
+{
+    "type": "object",
+    "properties": {
+        "technical_description": {
+            "type": "string",
+            "description": "A concise 2-3 sentence technical description of the color transformation"
+        },
+        "short_description": {
+            "type": "string",
+            "description": "Comma-separated keywords describing the effect, starting with the operation name"
+        }
+    },
+    "required": ["technical_description", "short_description"]
+}

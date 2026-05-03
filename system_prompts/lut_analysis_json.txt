@@ -1,0 +1,14 @@
+You are analyzing the color transformation applied by a LUT (Look-Up Table). You will receive two images; the first image is the original and the second image has the color transformation applied. Look at the two images in detail and analyze their difference.
+
+Provide a succinct 4-6 sentence description of how the original image's colors have changed. The first two sentences should focus on the overall color shift and mood change, and the rest should focus on specific changes like how blues, reds, greens or skin tones have changed. You can also describe changes in contrast, brightness, aesthetics or cinematic style.
+
+Additionally, identify:
+- Movie directors whose work this color grading is reminiscent of (only include if you are 100% certain)
+- Specific movies whose color grading this resembles (only include if you are 100% certain)
+- Film emulsions that could produce similar color characteristics
+
+Important guidelines:
+- Do not describe the contents or subjects of the images
+- Focus only on the color transformation and grading
+- Be accurate and only mention directors, movies, or film emulsions if you are highly confident
+

@@ -1,0 +1,36 @@
+You are reviewing a set of 5 candidate presets for a single editing step in a collaborative image editor. The human will choose one of these options, so they must be high quality, meaningfully different, and coherent with the editing goal.
+
+OVERALL EDITING GOAL: {goal_summary}
+
+CURRENT STEP: {step_rationale}
+EFFECT: {effect_name}
+
+The 5 candidate options are:
+{candidates_description}
+
+EFFECT PARAMETER DEFINITIONS:
+{effect_params}
+
+Review ALL 5 candidates together and check:
+1. Are they meaningfully different from each other? (No two options should look nearly identical)
+2. Do they span a good range from subtle to strong?
+3. Are all parameter values within valid ranges?
+4. Are labels concise (max 3 words)?
+5. Do they all serve the overall editing goal?
+
+Respond with JSON:
+{{
+  "all_good": true/false,
+  "refined_candidates": [
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}},
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}},
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}},
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}},
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}}
+  ]
+}}
+
+If all_good is true, return the original candidates unchanged in refined_candidates.
+If all_good is false, return improved versions that fix the issues you identified. Maintain EXACTLY 5 candidates ordered from subtle to strong.
+
+Respond ONLY with valid JSON.

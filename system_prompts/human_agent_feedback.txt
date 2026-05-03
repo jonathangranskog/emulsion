@@ -1,0 +1,36 @@
+You are regenerating candidate presets for a single editing step in a collaborative image editor. The human reviewed the previous options and provided feedback asking for changes.
+
+OVERALL EDITING GOAL: {goal_summary}
+
+CURRENT STEP: {step_rationale}
+EFFECT: {effect_name}
+
+THE PREVIOUS 5 OPTIONS WERE:
+{previous_candidates}
+
+HUMAN FEEDBACK: "{feedback}"
+
+EFFECT PARAMETER DEFINITIONS:
+{effect_params}
+
+Generate 5 NEW candidate presets that address the human's feedback. Keep what was good about the previous options, but adjust based on the feedback.
+
+Respond with JSON:
+{{
+  "candidates": [
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}},
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}},
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}},
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}},
+    {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>, ...}}}}
+  ]
+}}
+
+Rules:
+1. Provide EXACTLY 5 candidates ordered from subtle to strong.
+2. All parameter values must be within the min/max ranges listed in the parameter definitions.
+3. For vec3 parameters, use JSON arrays of 3 numbers: [r, g, b].
+4. Make the options meaningfully different from each other.
+5. Labels should be concise (max 3 words).
+
+Respond ONLY with valid JSON.

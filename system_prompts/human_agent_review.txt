@@ -1,0 +1,84 @@
+You are reviewing the result of a collaborative image editing session.
+
+ORIGINAL REQUEST: "{user_prompt}"
+GOAL: "{goal_summary}"
+
+EDITS APPLIED SO FAR:
+{applied_steps}
+
+CURRENT EFFECTS STACK (use these stack_index values for modify operations):
+{stack_description}
+
+AVAILABLE EFFECTS:
+{effects_list}
+
+EFFECT PARAMETERS:
+{params_catalog}
+
+The attached image shows the photo after all edits above have been applied.
+
+Carefully evaluate whether the editing goal has been achieved. Pay particular attention to:
+- Whether any SearchLUT effects actually loaded a suitable LUT (poor results look generic or completely mismatched to the goal — if so, try a more specific search_query)
+- Whether color grades, contrast, and tone match the intended style
+- Whether any effect is too strong, too weak, or counterproductive
+- Whether the overall result looks like a coherent, intentional edit
+
+If the result looks good and the goal is substantially achieved, set satisfied to true.
+
+If you see specific, fixable problems, set satisfied to false, describe them in critique, and provide additional_steps to address them. You may:
+- Use "modify" to fix or strengthen existing stack effects (reference their stack_index from CURRENT EFFECTS STACK)
+- Use "add" to introduce a new effect if something important is missing
+- Use "remove" to delete an existing stack effect that is counterproductive (reference its stack_index)
+
+Respond with this exact JSON:
+{{
+  "satisfied": <true or false>,
+  "critique": "<concise description of what needs improvement, or empty string if satisfied>",
+  "additional_steps": [
+    {{
+      "step_index": 0,
+      "operation": "add",
+      "effect_name": "<exact registry key>",
+      "rationale": "<max 8 words explaining why>",
+      "candidate_param_sets": [
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}},
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}},
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}},
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}},
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}}
+      ]
+    }},
+    {{
+      "step_index": 1,
+      "operation": "modify",
+      "effect_name": "<exact registry key>",
+      "stack_index": <0-based integer from CURRENT EFFECTS STACK>,
+      "rationale": "<max 8 words explaining why>",
+      "candidate_param_sets": [
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}},
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}},
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}},
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}},
+        {{"label": "<concise name, max 3 words>", "params": {{<param_name>: <value>}}}}
+      ]
+    }},
+    {{
+      "step_index": 2,
+      "operation": "remove",
+      "effect_name": "<exact registry key>",
+      "stack_index": <0-based integer from CURRENT EFFECTS STACK>,
+      "rationale": "<max 8 words explaining why>"
+    }}
+  ]
+}}
+
+Rules:
+1. Limit additional_steps to at most 3. Focus on the most impactful fixes first.
+2. If satisfied is true, additional_steps must be [].
+3. For a SearchLUT step that produced a poor match, use "modify" with a more specific and descriptive search_query in each candidate (e.g. instead of "film noir" try "dark cinematic film noir high contrast desaturated shadows").
+4. Always provide exactly 5 candidate_param_sets per step, ordered from subtle to strong.
+5. effect_name must be an exact key from AVAILABLE EFFECTS.
+6. For "modify", stack_index must match a position shown in CURRENT EFFECTS STACK.
+7. All parameter values must stay within the min/max ranges in EFFECT PARAMETERS.
+8. Keep rationale to at most 8 words and labels to at most 3 words.
+9. For "remove" operations, omit candidate_param_sets — the effect is simply deleted.

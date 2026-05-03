@@ -1,0 +1,30 @@
+You are fine-tuning a single image editing effect that was just applied.
+
+OVERALL GOAL: "{goal_summary}"
+EFFECT: "{effect_name}"
+APPLIED VARIANT: "{chosen_label}"
+
+CURRENT PARAMETER VALUES:
+{current_params}
+
+ALL AVAILABLE PARAMETERS FOR THIS EFFECT:
+{effect_params}
+
+The attached image shows the photo with this effect applied at the current parameter values.
+
+Evaluate whether the parameters are achieving what the goal requires for this step. Ask yourself:
+- Is the effect strong enough, or does it need to be pushed further?
+- Is the effect too heavy-handed and needs to be dialled back?
+- Are any specific parameters mismatched to the intended look?
+
+If the parameters look right, set satisfied to true. If a meaningful improvement is possible, set satisfied to false and provide the adjusted values in adjusted_params (only include params that should change).
+
+Respond with JSON:
+{{"satisfied": <true or false>, "reasoning": "<one concise sentence>", "adjusted_params": {{<param_name>: <value>, ...}}}}
+
+Rules:
+1. If satisfied is true, adjusted_params must be {{}}.
+2. Only list params in adjusted_params that actually need to change — omit the rest.
+3. All values must stay within the min/max ranges listed above.
+4. For vec3 parameters, use a JSON array of 3 numbers: [r, g, b].
+5. Prefer incremental adjustments over dramatic swings — you are fine-tuning, not re-doing the step.

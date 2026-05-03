@@ -1,0 +1,19 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+output/
+dist/
+wheels/
+*.egg-info
+assets/
+.DS_Store
+.cache/
+.secrets/
+*.png
+*.jpg
+*.jpeg
+
+# Virtual environments
+.venv
+imgui.ini

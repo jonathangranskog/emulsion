@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "long_description": {
+            "type": "string",
+            "description": "A detailed description of the color transformation"
+        },
+        "short_description": {
+            "type": "string",
+            "description": "A concise description of the color transformation, in comma-separated format"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "general_description": {
+            "type": "string",
+            "description": "A succinct 4-6 sentence description of how the colors have changed"
+        },
+        "directors": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "List of movie directors whose work this color grading resembles. Only include if 100% certain."
+        },
+        "movies": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "List of specific movies whose color grading this resembles. Only include if 100% certain."
+        },
+        "film_emulsions": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "List of film emulsions that could produce similar color characteristics. Only include if 100% certain."
+        }
+    },
+    "required": ["general_description", "directors", "movies", "film_emulsions"]
+}

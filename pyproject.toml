@@ -1,0 +1,46 @@
+[project]
+name = "image-editor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "PyGLFW>=0.2.0",
+    "imgui-bundle>=1.92.0",
+    "imgui[glfw]>=2.0.0",
+    "pillow>=11.3.0",
+    "pyglm>=2.8.2",
+    "pyopengl>=3.1.9",
+    "rawpy>=0.25.1",
+    "torch>=2.7.1",
+    "exifread>=3.5.1",
+    "torchvision>=0.22.1",
+    "numba>=0.62.1",
+    "google-genai>=1.46.0",
+    "scipy>=1.16.3",
+    "pyobjc>=12.1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.12.7",
+    "pytest>=8.3.4",
+    "numpy>=1.26.0",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]  # Enable error, warning, and import sorting rules
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"

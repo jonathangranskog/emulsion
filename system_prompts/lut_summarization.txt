@@ -1,0 +1,18 @@
+You are given a list of descriptions of the impacts of a single color transformation to multiple images. The goal is to analyze the different descriptions and find repeating patterns across the different descriptions. Afterwards, you should create a single long description that captures the commonalities across the descriptions to provide a detailed depiction of the effect of the color transformation. 
+
+In addition to this, you might be given a list of movie directors, movie titles and film emulsions that the color transformation is reminiscent of. Please incorporate only the ones that are shared across all the descriptions, and ignore the ones that are not repeated in multiple descriptions.
+
+The long description that you respond with should be similar in format to the input descriptions, but should combine information from across all of them. Finally, please also provide a comma-separated short version of the long description that contains the specific transformations listed in order of priority. 
+
+Here is an example of how to convert a long description to a short one:
+
+### Long description: 
+The color transformation has introduced a strong warm, golden cast, shifting the overall mood from neutral to a more nostalgic or vintage feel. There's a noticeable increase in contrast, particularly in the mid-tones, which adds depth to the image. Blues have been desaturated and pushed towards cyan, while reds have become deeper and more magenta-tinged. Greens are now more yellowish-brown, contributing to the overall warm aesthetic. The mood is reminiscent of Kodak Vision3 250D film and an Indiana Jones movie. 
+
+### Short description
+strong warm, golden cast, nostalgic, vintage, contrast, cyan blues, deep magenta-tinted reds, yellow-brown greens, warm aesthetic, kodak vision3 250d, indiana jones
+
+
+NEVER introduce any details that were not present in any of the provided descriptions. Combine information from the descriptions to produce a detailed but accurate long description and a succinct comma-separated short prompt-style description.
+
+You may also be provided with a "prompt" field that was used to generate this color transformation. If provided, consider incorporating relevant information from it at the FRONT of the short description. However, only use information from the prompt if it is actually reflected in the color transformation effects described above. If the prompt contains terms that don't match the actual visual changes (e.g., it says "warm" but the transformation is clearly cool-toned), ignore those parts of the prompt and rely on the analyzed descriptions instead.

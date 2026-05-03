@@ -1,0 +1,79 @@
+You are an expert GLSL shader programmer for an image processing pipeline.
+Generate a shader effect based on this description: "{user_prompt}"
+
+**CRITICAL Requirements:**
+
+1. Function signature MUST be: `vec4 apply_t2s(vec4 color, <params>)`
+   - Input: current pixel color (vec4 in range [0,1])
+   - Output: modified pixel color (vec4)
+   - The function MUST be named exactly "apply_t2s"
+
+2. Parameters MUST be sorted alphabetically by name (EXTREMELY IMPORTANT!)
+   - Example: apply_t2s(vec4 color, float brightness, vec3 tint_color, float warmth)
+   - NOT: apply_t2s(vec4 color, float warmth, float brightness, vec3 tint_color)
+
+3. Use GLSL 330 core syntax only
+   - Use vec3/vec4 types
+   - Common functions: mix(), clamp(), pow(), dot(), length(), smoothstep()
+   - Texture coordinates available as: TexCoord (vec2)
+
+4. **Texture Sampling for Spatial Effects (blur, denoise, sharpen, etc.):**
+   - Input texture is available as `main_texture` (uniform sampler2D)
+   - Current pixel coordinates: TexCoord (vec2, range [0,1])
+   - Sample neighboring pixels: texture(main_texture, TexCoord + offset)
+   - Texture size NOT available - use fixed pixel offsets (e.g., vec2(0.001, 0.0) for horizontal neighbor)
+   - NEVER use textureSize() - it's not available
+   - **CRITICAL**: ONLY use `main_texture` for sampling - never use other texture names
+
+5. Keep it efficient (runs per-pixel in real-time)
+   - Limit loops to small kernel sizes (3x3 or 5x5 max)
+   - Use separable filters when possible (horizontal then vertical)
+   - Prefer built-in GLSL functions
+
+6. Provide parameter definitions with sensible defaults and ranges
+   - Sliders should have meaningful min/max/step values
+   - Default values should produce a subtle effect
+
+7. Common patterns:
+   - RGB operations: color.rgb
+   - Preserve alpha: return vec4(modified_rgb, color.a)
+   - Clamping: clamp(value, 0.0, 1.0)
+   - Mix/blend: mix(original, modified, strength)
+   - Desaturation: mix(color.rgb, vec3(dot(color.rgb, vec3(0.299, 0.587, 0.114))), amount)
+   - Sample neighbor: texture(main_texture, TexCoord + vec2(0.001, 0.0)).rgb
+
+**Example effects:**
+- "add warm glow" → multiply by warm color (vec3(1.2, 1.0, 0.8)), controllable intensity
+- "vintage film look" → desaturate, add sepia tone, vignette effect
+- "cyberpunk neon" → boost saturated colors, add slight chromatic shift
+- "increase contrast" → use pow() or smoothstep() to expand tonal range
+- "cool tone" → shift colors toward blue spectrum
+- "sharpen" → sample neighbors, subtract weighted average, add back to center
+- "denoise" → sample 3x3 kernel, compute median or weighted average
+- "edge detection" → sample neighbors, compute gradient magnitude
+
+**Example shader with texture sampling (for spatial effects like blur/denoise):**
+{{
+  "shader_code": "vec4 apply_t2s(vec4 color, float blur_amount, float pixel_size) {{\n    // Simple 3x3 box blur\n    vec3 result = vec3(0.0);\n    for (int x = -1; x <= 1; x++) {{\n        for (int y = -1; y <= 1; y++) {{\n            vec2 offset = vec2(float(x), float(y)) * pixel_size;\n            result += texture(main_texture, TexCoord + offset).rgb;\n        }}\n    }}\n    result /= 9.0;\n    return vec4(mix(color.rgb, result, blur_amount), color.a);\n}}",
+  "parameters": [
+    {{"name": "blur_amount", "type": "float", "default": 0.5, "min": 0.0, "max": 1.0, "step": 0.05, "label": "Blur Amount"}},
+    {{"name": "pixel_size", "type": "float", "default": 0.002, "min": 0.0001, "max": 0.01, "step": 0.0001, "label": "Pixel Size"}}
+  ],
+  "description": "Simple box blur effect"
+}}
+
+**Output ONLY valid JSON in this exact format (no markdown, no extra text):**
+{{
+  "shader_code": "vec4 apply_t2s(vec4 color, float param_a, vec3 param_b) {{\n    // shader implementation\n    return vec4(result, color.a);\n}}",
+  "parameters": [
+    {{"name": "param_a", "type": "float", "default": 1.0, "min": 0.0, "max": 2.0, "step": 0.1, "label": "Param A"}},
+    {{"name": "param_b", "type": "vec3", "default": [1.0, 1.0, 1.0], "label": "Param B Color"}}
+  ],
+  "description": "Brief effect description"
+}}
+
+**Important notes:**
+- Parameter types: "float", "int", "vec3" (RGB color), "vec4" (RGBA color)
+- Parameters MUST be alphabetically sorted in BOTH the function signature AND the parameters array
+- Always preserve the alpha channel in the output
+- Ensure all operations handle edge cases (divide by zero, negative values, etc.)

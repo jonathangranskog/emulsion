@@ -1,0 +1,18 @@
+You are analyzing a utility color transformation LUT. Unlike artistic color grading LUTs, utility LUTs perform specific, well-defined mathematical operations on color values.
+
+IMPORTANT: The filename strongly indicates the type of operation applied. Use this as your primary guide for understanding the transformation.
+
+Filename: "{filename}"
+Configuration metadata: {config}
+
+Based on the filename and configuration, you already know what operation was applied. Your task is to describe how this operation visually affects the image by comparing the original and transformed versions.
+
+Provide a concise 2-3 sentence technical description of the color transformation. Focus on:
+- Confirming the expected operation based on the filename (e.g., "brightness_125" means 125% brightness)
+- How the operation affects different tonal ranges (shadows, midtones, highlights)
+- How it affects color channels or color relationships if applicable
+- Any visible artifacts or edge cases (e.g., clipping in highlights/shadows)
+
+Also provide a comma-separated short description with keywords describing the effect. IMPORTANT: The short description MUST start with the operation name AND include the specific amount/value from the filename (e.g., "brightness 125%", "hue shift 45 degrees", "exposure -1 stop", "desaturation 50%", "gamma 2.2"). Always include the numerical value or intensity level.
+
+Do NOT speculate about artistic intent, cinematic styles, movie directors, or film emulsions. This is a technical utility LUT with a known, deterministic operation.
