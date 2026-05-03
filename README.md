@@ -206,13 +206,13 @@ uv run python main.py --disable-cache
 The semantic LUT search requires a precomputed embedding cache. If you have a library of `.cube` LUT files, you can build the cache with the scripts in `scripts/`:
 
 ```bash
-# Caption LUTs with Gemini vision
-uv run python scripts/caption_all_luts.py --lut-dir /path/to/luts
+# Caption LUTs in `assets/luts` with Gemini vision
+uv run python scripts/caption_all_luts.py
 
-# Generate embeddings
+# Generate embeddings from captions in `assets/captions`
 uv run python scripts/create_lut_embeddings.py
 
-# Build the search cache
+# Build the search cache from embeddings in `assets/lut_embeddings`
 uv run python scripts/construct_lut_search_cache.py
 ```
 
