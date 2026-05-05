@@ -125,7 +125,7 @@ All effects can be stacked in any order. Each has independent parameters control
 | Highlights | Luminance-masked adjustment of bright areas |
 | Shadows | Luminance-masked adjustment of dark areas |
 | Temperature & Tint | Color temperature and tint (white balance) |
-| Color Shift | Per-channel hue shift with scale control |
+| Color Shift | Per-channel color offset with scale control |
 | Black & White | Monochrome conversion with filter color |
 
 **Tone Mapping:**
